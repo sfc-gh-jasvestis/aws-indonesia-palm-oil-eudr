@@ -1,0 +1,122 @@
+{
+  "title": "EUDR Compliance Engine",
+  "duration": "4 minutes",
+  "thesis": "Snowflake automates EUDR due diligence at scale \u2014 geospatial polygon checks against deforestation baselines, Dynamic Tables compile compliance dossiers per shipment, and Cortex AI generates regulatory narratives",
+  "tabs": [
+    {
+      "id": "compliance-overview",
+      "persona": {
+        "name": "Ir. Hendra Wijaya",
+        "role": "Chief Sustainability Officer",
+        "avatar": "\ud83d\udc68\u200d\ud83d\udcbc"
+      },
+      "talking_points": [
+        "15,000 plot polygons verified against post-2020 deforestation baseline.",
+        "94.2% of active shipments are EUDR-compliant \u2014 1,160 shipments still pending verification.",
+        "3,000 due diligence statements generated \u2014 2,740 ready for EU submission."
+      ],
+      "show": [
+        "Point at 94.2% compliance KPI",
+        "Highlight pending shipments in amber",
+        "Note 2,740 DDS ready count"
+      ],
+      "call_out": "94.2% compliant \u2014 1,160 shipments still need polygon verification",
+      "transition": {
+        "next_tab": "geospatial-risk",
+        "line": "Let's look at where the deforestation risk is geographically."
+      }
+    },
+    {
+      "id": "geospatial-risk",
+      "persona": {
+        "name": "Dr. Sari Indrawati",
+        "role": "Geospatial Analyst",
+        "avatar": "\ud83d\udc69\u200d\ud83d\udd2c"
+      },
+      "talking_points": [
+        "Heat map shows deforestation risk concentrated in Central Kalimantan and Riau provinces.",
+        "47 plots overlap with post-2020 deforestation areas \u2014 requires field verification or exclusion.",
+        "Satellite alerts processed daily \u2014 100,000 GLAD alert points classified by confidence."
+      ],
+      "show": [
+        "Show risk heatmap by province",
+        "Zoom into Central Kalimantan overlap plots",
+        "Show satellite alert classification"
+      ],
+      "call_out": "47 plots with deforestation overlap \u2014 Central Kalimantan highest risk",
+      "transition": {
+        "next_tab": "compliance-engine",
+        "line": "The geospatial checks are automated. Let's see the compliance engine."
+      }
+    },
+    {
+      "id": "compliance-engine",
+      "persona": {
+        "name": "Dr. Sari Indrawati",
+        "role": "Geospatial Analyst",
+        "avatar": "\ud83d\udc69\u200d\ud83d\udd2c"
+      },
+      "talking_points": [
+        "Dynamic Tables automatically compile per-shipment compliance dossiers with evidence links.",
+        "Cortex AI generates due diligence statement narratives from structured compliance data.",
+        "Each DDS links to polygon checks, satellite verification, and chain-of-custody evidence."
+      ],
+      "show": [
+        "Show a generated DDS with evidence links",
+        "Point at the AI-generated narrative section",
+        "Show linked polygon verification"
+      ],
+      "call_out": "Automated DDS generation \u2014 from polygon check to regulatory narrative",
+      "transition": {
+        "next_tab": "ask-ai",
+        "line": "Now let the CSO ask the system about compliance status."
+      }
+    },
+    {
+      "id": "ask-ai",
+      "persona": {
+        "name": "Ir. Hendra Wijaya",
+        "role": "Chief Sustainability Officer",
+        "avatar": "\ud83d\udc68\u200d\ud83d\udcbc"
+      },
+      "talking_points": [
+        "Hendra asks: 'What percentage of our shipments are EUDR-compliant?'",
+        "Cortex Analyst queries compliance data \u2014 returns 94.2% with breakdown by province.",
+        "Follow-up: 'Which supply chains in Riau have deforestation risk?' \u2014 agent provides plot-level detail."
+      ],
+      "show": [
+        "Type compliance question",
+        "Show SQL + results",
+        "Switch to advisory mode for risk detail"
+      ],
+      "call_out": "Two AI modes: compliance analytics + regulatory advisory",
+      "transition": {
+        "next_tab": "architecture",
+        "line": "Every capability \u2014 native Snowflake SQL, geospatial functions."
+      }
+    },
+    {
+      "id": "architecture",
+      "persona": {
+        "name": "Ir. Hendra Wijaya",
+        "role": "Chief Sustainability Officer",
+        "avatar": "\ud83d\udc68\u200d\ud83d\udcbc"
+      },
+      "talking_points": [
+        "Six Snowflake capabilities, six AWS services in the dual-build architecture.",
+        "Snowflake GEOGRAPHY functions replace Amazon Location Service for polygon operations.",
+        "Indonesia faces Rp 200T+ in export revenue risk if EUDR compliance fails for palm oil."
+      ],
+      "show": [
+        "Walk through architecture diagram",
+        "Toggle dual-build mode",
+        "Point at geospatial flow"
+      ],
+      "call_out": "One platform, native geospatial, automated EUDR compliance",
+      "transition": {
+        "next_tab": "",
+        "line": "That's Snowflake and AWS \u2014 better together for EUDR compliance."
+      }
+    }
+  ]
+}
