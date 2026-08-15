@@ -9,7 +9,6 @@ The EU Deforestation Regulation requires full geolocation traceability for all p
 ```mermaid
 flowchart LR
     S3[S3 Data Landing] --> SP[Snowpipe]
-    SP --> RAW[RAW Tables]
     RAW --> DT[Dynamic Tables]
     DT --> ML[ML Functions]
     DT --> SEARCH[Cortex Search]
