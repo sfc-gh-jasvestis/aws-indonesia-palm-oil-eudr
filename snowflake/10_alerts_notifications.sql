@@ -8,7 +8,7 @@ USE SCHEMA APP;
 CREATE OR REPLACE NOTIFICATION INTEGRATION aws_indonesia_palm_oil_eudr_EMAIL_INT
   TYPE = EMAIL
   ENABLED = TRUE
-  ALLOWED_RECIPIENTS = ('jonathan.asvestis@snowflake.com');
+  ALLOWED_RECIPIENTS = ('<YOUR_EMAIL>');
 
 -- Alert: DEFORESTATION_OVERLAP_ALERT
 CREATE OR REPLACE ALERT APP.DEFORESTATION_OVERLAP_ALERT
@@ -22,7 +22,7 @@ IF (EXISTS (
 THEN
   CALL SYSTEM$SEND_EMAIL(
     'aws_indonesia_palm_oil_eudr_EMAIL_INT',
-    'jonathan.asvestis@snowflake.com',
+    '<YOUR_EMAIL>',
     '[ALERT] EUDR Compliance Engine: Plot deforestation risk detected — EUDR compliance at risk',
     'Plot deforestation risk detected — EUDR compliance at risk'
   );
@@ -41,7 +41,7 @@ IF (EXISTS (
 THEN
   CALL SYSTEM$SEND_EMAIL(
     'aws_indonesia_palm_oil_eudr_EMAIL_INT',
-    'jonathan.asvestis@snowflake.com',
+    '<YOUR_EMAIL>',
     '[ALERT] EUDR Compliance Engine: EUDR submission deadline approaching',
     'EUDR submission deadline approaching'
   );
