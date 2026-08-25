@@ -119,6 +119,7 @@ Industry research and Snowflake customer outcomes:
 - **EU imports 4.5M tonnes of palm oil annually from Indonesia — non-compliant exporters face exclusion from $8B market** — [GAPKI](https://gapki.id/en/)
 - **Only 15% of Indonesian palm oil smallholders (out of 2.67M) currently have GPS-mapped plantation boundaries** — [UNDP Indonesia](https://www.undp.org/indonesia/palm-oil)
 - **Unilever tracks 1.5M tonnes of palm oil supply chain using satellite monitoring and digital traceability** — [Unilever Palm Oil Report](https://www.unilever.com/planet-and-society/protect-and-regenerate-nature/)
+- **John Deere** (Snowflake customer): connects 500K+ machines on Snowflake, enabling precision agriculture analytics across 400M+ acres globally -- [snowflake.com/customers/john-deere](https://www.snowflake.com/en/customers/all-customers/case-study/john-deere/)
 
 ## Key Demo Numbers
 
