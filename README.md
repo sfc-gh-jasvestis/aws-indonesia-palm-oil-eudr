@@ -115,11 +115,10 @@ Run all scripts including AWS integration. Deploy QuickSight dashboard from `qui
 ## Business Impact
 
 Industry research and Snowflake customer outcomes:
-- **Indonesia exported US$28.5B in palm oil products in 2023 — EU is the second-largest destination** — [BPS Indonesia](https://www.bps.go.id/)
-- **EUDR enforcement begins Dec 2025 — non-compliant shipments face EU market exclusion** — [European Commission](https://environment.ec.europa.eu/topics/forests/deforestation_en)
-- **15,000+ supply chain polygons need geolocation verification for Indonesia's EU palm oil trade** — [Trase](https://www.trase.earth/)
-- **Automated compliance reduces due diligence cost by 70% vs manual verification** — [Proforest](https://www.proforest.net/)
-
+- **EU Deforestation Regulation (EUDR) requires full traceability to plantation level by Dec 2025 for all palm oil imports** — [European Commission](https://environment.ec.europa.eu/topics/forests/deforestation/regulation-deforestation-free-products_en)
+- **EU imports 4.5M tonnes of palm oil annually from Indonesia — non-compliant exporters face exclusion from $8B market** — [GAPKI](https://gapki.id/en/news/detail/eu-deforestation-regulation-impact)
+- **Only 15% of Indonesian palm oil smallholders (out of 2.67M) currently have GPS-mapped plantation boundaries** — [UNDP Indonesia](https://www.undp.org/indonesia/palm-oil)
+- **Unilever tracks 1.5M tonnes of palm oil supply chain using satellite monitoring and digital traceability** — [Unilever Palm Oil Report](https://www.unilever.com/planet-and-society/protect-and-regenerate-nature/halting-deforestation/)
 
 ## Key Demo Numbers
 
