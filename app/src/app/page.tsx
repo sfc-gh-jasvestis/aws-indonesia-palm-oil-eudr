@@ -35,36 +35,36 @@ export default function HomePage() {
   const executiveCockpit = (
     <div className="space-y-6">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <KPICard title="Total Yield" value="Rp 2.4B" status="neutral" />
-        <KPICard title="EUDR Compliance" value="7" status="warning" />
-        <KPICard title="Anomalies Detected" value="3" status="danger" />
-        <KPICard title="Active Mills" value="124" status="neutral" />
+        <KPICard title="EUDR Compliant Lots" value="87%" status="warning" />
+        <KPICard title="Deforestation-Free" value="94%" status="neutral" />
+        <KPICard title="Smallholders Mapped" value="42K" status="neutral" />
+        <KPICard title="Due Diligence Statements" value="1,247" status="neutral" />
       </div>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Chart
           data={data?.timeseries || [{ period: 'Loading', value: 0 }]}
           type="line"
           xKey="period"
-          yKeys={[{ key: 'value', name: 'Yield' }]}
-          title="Yield Trend (Weekly)"
+          yKeys={[{ key: 'value', name: '% Compliant' }]}
+          title="EUDR Compliance Progress (Monthly)"
         />
         <Chart
           data={data?.categories || [{ category: 'Loading', count: 0 }]}
           type="bar"
           xKey="category"
-          yKeys={[{ key: 'count', name: 'Count' }]}
-          title="EUDR Compliance by Mill"
+          yKeys={[{ key: 'count', name: 'Risk Score' }]}
+          title="Risk Assessment by Supplier"
         />
       </div>
       <DataTable
         columns={[
           { key: 'id', header: '#' },
-          { key: 'name', header: 'Mill' },
-          { key: 'status', header: 'Status' },
-          { key: 'value', header: 'Yield' },
+          { key: 'name', header: 'Supplier' },
+          { key: 'status', header: 'EUDR Status' },
+          { key: 'value', header: 'Compliance %' },
         ]}
         data={data?.entities || []}
-        title="Mill Performance"
+        title="Supplier EUDR Status"
       />
     </div>
   );
@@ -72,16 +72,16 @@ export default function HomePage() {
   const domainTab1 = (
     <div className="space-y-6">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <KPICard title="Efficiency" value="87%" />
-        <KPICard title="Utilization" value="72%" />
-        <KPICard title="Growth Rate" value="+8.4%" />
+        <KPICard title="Plots Geolocated" value="98.4%" />
+        <KPICard title="Satellite Alerts (30d)" value="12" />
+        <KPICard title="Forest Proximity Risk" value="4.2%" />
       </div>
       <Chart
         data={data?.detail || [{ x: 'Loading', y: 0 }]}
         type="area"
         xKey="x"
-        yKeys={[{ key: 'y', name: 'Index' }]}
-        title="Oil Eudr Performance Trend"
+        yKeys={[{ key: 'y', name: 'Alerts' }]}
+        title="Deforestation Alerts by District"
         height={400}
       />
     </div>
@@ -94,17 +94,17 @@ export default function HomePage() {
           data={data?.breakdown || [{ label: 'A', value: 30 }, { label: 'B', value: 70 }]}
           type="pie"
           xKey="label"
-          yKeys={[{ key: 'value', name: 'Score' }]}
-          title="Risk Distribution"
+          yKeys={[{ key: 'value', name: 'Statements' }]}
+          title="Statement Submission Timeline"
         />
         <ActionMemo
-          persona={{ name: 'Indonesia Operations Lead', role: 'Director of Oil Eudr' }}
+          persona={{ name: 'Sri Mulyani Hartono', role: 'EUDR Compliance Director' }}
           context={{}}
           onGenerate={async () => ({
             subject: 'Action Required',
             body: 'AI-generated recommendation based on current data patterns and predicted trends.',
             urgency: 'HIGH',
-            actions: ['Review top eudr compliance findings', 'Optimize mill allocation', 'Prepare quarterly oil eudr report'],
+            actions: ['Complete geolocation for remaining 2.4K smallholder plots', 'Submit Due Diligence Statement for EU Batch#EU-2024-847', 'Investigate satellite alert in Kalimantan Barat block'],
           })}
         />
       </div>
@@ -116,9 +116,9 @@ export default function HomePage() {
       <AskAI
         title="Ask AI"
         sampleQuestions={[
-          'Which mills have the highest eudr compliance?',
-          'Show yield trend for the last 30 days',
-          'What is the forecast for next quarter's yield?',
+          'Which suppliers are not yet EUDR compliant?',
+          'Show deforestation alert trends by province',
+          'What is the risk score for our EU-bound supply chain?',
         ]}
         mode="both"
         onSubmit={async (question, mode) => {
@@ -178,8 +178,8 @@ export default function HomePage() {
 
   const tabs = [
     { id: 'executive-cockpit', label: 'Executive Cockpit', icon: '📊', content: executiveCockpit },
-    { id: 'domain-1', label: 'Oil Eudr Analytics', icon: '📈', content: domainTab1 },
-    { id: 'domain-2', label: 'Alerts & Actions', icon: '⚡', content: domainTab2 },
+    { id: 'domain-1', label: 'Geospatial', icon: '📈', content: domainTab1 },
+    { id: 'domain-2', label: 'Due Diligence', icon: '⚡', content: domainTab2 },
     { id: 'ask-ai', label: 'Ask AI', icon: '🤖', content: askAiTab },
     { id: 'architecture', label: 'Architecture & Data', icon: '🏗️', content: architectureTab },
   ];
