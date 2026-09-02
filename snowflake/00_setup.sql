@@ -1,16 +1,13 @@
--- ============================================================================
--- EUDR Compliance Engine
--- Automated EU Deforestation Regulation compliance for Indonesia's 51M-tonne CPO industry — geospatial deforestation checks, Dynamic Tables build compliance dossiers, and Cortex AI extracts evidence from satellite imagery metadata.
--- ============================================================================
-USE ROLE ACCOUNTADMIN;
-CREATE DATABASE IF NOT EXISTS PALM_OIL_EUDR;
-CREATE WAREHOUSE IF NOT EXISTS EUDR_WH WAREHOUSE_SIZE = 'MEDIUM' AUTO_SUSPEND = 120 AUTO_RESUME = TRUE;
-USE DATABASE PALM_OIL_EUDR;
-CREATE SCHEMA IF NOT EXISTS RAW;
-CREATE SCHEMA IF NOT EXISTS CURATED;
-CREATE SCHEMA IF NOT EXISTS ML;
-CREATE SCHEMA IF NOT EXISTS AI;
-CREATE SCHEMA IF NOT EXISTS SEARCH;
-CREATE SCHEMA IF NOT EXISTS APP;
+-- Generated from generator/demo_specs/aws-indonesia-palm-oil-eudr.json
+-- Regenerate with: python3 generator/gen_repo_docs.py aws-indonesia-palm-oil-eudr
+-- This is the schema that is actually deployed for ID_PALM_OIL_EUDR.
 
-USE WAREHOUSE EUDR_WH;
+-- ID_PALM_OIL_EUDR  (EUDR Compliance Engine)
+-- generated from generator/demo_specs/aws-indonesia-palm-oil-eudr.json - do not hand-edit
+CREATE DATABASE IF NOT EXISTS ID_PALM_OIL_EUDR;
+CREATE SCHEMA IF NOT EXISTS ID_PALM_OIL_EUDR.RAW;
+CREATE SCHEMA IF NOT EXISTS ID_PALM_OIL_EUDR.CURATED;
+CREATE SCHEMA IF NOT EXISTS ID_PALM_OIL_EUDR.APP;
+USE DATABASE ID_PALM_OIL_EUDR;
+
+-- 5 real regions; entity names carry their region so the two always agree
