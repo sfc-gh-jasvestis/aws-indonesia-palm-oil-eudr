@@ -1,108 +1,81 @@
-# Demo Script: EUDR Compliance Engine
-## ~4-Minute Recorded Walkthrough
-**Format**: Screen recording with voiceover
-**Target**: Customer meeting / booth loop / social share
-**Narrative**: "Snowflake automates EUDR due diligence at scale — geospatial polygon checks against deforestation baselines, Dynamic Tables compile compliance dossiers per shipment, and Cortex AI generates regulatory narratives"
-**Demo Mode**: Open app with `?demo=true` for presenter notes
+# EUDR Compliance Engine
 
----
+**Indonesia - Palm Oil & Agriculture**
+Use case: EUDR Compliance
 
-## Two Personas
+> Automated EU Deforestation Regulation compliance for Indonesia's 51M-tonne CPO industry — geospatial deforestation checks, Dynamic Tables build compliance dossiers, and Cortex AI extracts evidence from satellite imagery metadata.
 
-| Persona | Role | Tool | What they care about |
-|---|---|---|---|
-| **Ir. Hendra Wijaya** | Chief Sustainability Officer | React App (SPCS) | EUDR deadline compliance, deforestation-free verification, EU buyer retention, regulatory risk |
-| **Dr. Sari Indrawati** | Geospatial Analyst | Amazon QuickSight | Polygon verification, deforestation baseline mapping, satellite data integration, false positive resolution |
+## Why Snowflake
 
----
+Snowflake automates EUDR due diligence at scale — geospatial polygon checks against deforestation baselines, Dynamic Tables compile compliance dossiers per shipment, and Cortex AI generates regulatory narratives
 
-## What's Built
+- **Geospatial polygon checks via GEOGRAPHY functions** - Only demo using Snowflake native geospatial for EUDR deforestation verification
+- **Automated due diligence statement generation** - Only demo generating EUDR regulatory narratives with Cortex AI from compliance data
+- **100,000 satellite alert classification** - ML classifies GLAD deforestation alerts by confidence and false positive likelihood
+- **Indonesian EUDR context at national scale** - 60% of global palm oil, Rp 200T EU export revenue at stake, realistic province-level data
+- **Dynamic Tables for compliance dossier assembly** - Automatically compiles per-shipment evidence packages from multiple data sources
 
-| Layer | Component | Detail |
+## What is deployed
+
+| | |
+|---|---|
+| Database | `ID_PALM_OIL_EUDR` |
+| Service | `ID_PALM_OIL_EUDR_APP` |
+| Compute pool | `SEA_DEMOS_INDONESIA_POOL` |
+| Dimension table | `RAW.COMPLIANCE_DOCS` (20 rows) |
+| Fact table | `RAW.SATELLITE_ALERTS` (250,000 rows, 90 days) |
+| Curated layer | `CURATED.PERFORMANCE_SUMMARY`, `CURATED.TREND_ANALYSIS`, `CURATED.KPI_SUMMARY` |
+| Currency | IDR (Rp) |
+
+Regions in play: Jakarta, North Sumatra, Riau, East Kalimantan, Sulawesi
+Segments: Primary Forest, Secondary Forest, Peatland, Cleared Plantation
+
+Dynamic tables are created suspended and refreshed on demand:
+
+```bash
+./refresh_demo_data.sh ID_PALM_OIL_EUDR
+```
+
+## KPI cards
+
+Every card below is served live from `CURATED.KPI_SUMMARY`. The app keeps the
+original literal as a fallback, so it still renders if Snowflake is unreachable.
+
+| Card | Value | Backed by |
 |---|---|---|
-| **RAW** | 6 tables | PLOT_POLYGONS (15000), DEFORESTATION_BASELINE (50000), SHIPMENT_DOSSIERS (20000), DUE_DILIGENCE_STATEMENTS (3000), SATELLITE_ALERTS (100000), COMPLIANCE_DOCS (200) |
-| **CURATED** | 4 Dynamic Tables | PLOT_DEFORESTATION_CHECK, SHIPMENT_COMPLIANCE_STATUS, DDS_GENERATION_QUEUE, RISK_HEATMAP |
-| **ML** | ML.ANOMALY_DETECTION | Forecasting + anomaly detection |
-| **AI** | COMPLETE, AI_CLASSIFY, SUMMARIZE | Classification + extraction |
-| **Search** | Cortex Search | 200 documents indexed |
-| **Agent** | EUDR_COMPLIANCE_AGENT | Semantic View + Search tools |
+| EUDR Compliant Lots | `87%` | average per event |
+| Deforestation-Free | `94%` | average per event |
+| Smallholders Mapped | `42K` | total across Compliance Docs |
+| Due Diligence Statements | `1,247` | total across Compliance Docs |
+| Plots Geolocated | `98.4%` | average per event |
+| Satellite Alerts (30d) | `12` | total across Compliance Docs |
+| Forest Proximity Risk | `4.2%` | average per event |
 
 
----
+## Demo flow
 
-## The Story
+1. Compliance Overview
+2. Geospatial Risk
+3. Compliance Engine
+4. Ask AI
+5. Architecture & Data
 
-The EU Deforestation Regulation requires full geolocation traceability for all palm oil entering the EU market. Indonesia — producing 60% of global palm oil — must verify 15,000+ plot polygons against deforestation baselines and generate due diligence statements for every shipment. With Rp 200 trillion in annual EU exports at stake, automated compliance is existential.
+## Talking points
 
----
+- **15,000 polygons** - plot boundaries verified against deforestation baseline
+- **94.2% compliant** - active shipments verified EUDR-compliant
+- **3,000 DDS** - due diligence statements generated
+- **100,000 alerts** - satellite deforestation alerts processed
+- **47 plots** - flagged for deforestation overlap
+- **Rp 200T+** - annual EU export revenue at risk
 
-## Script
+## Business impact
 
-### [0:00–0:45] COMPLIANCE OVERVIEW
-
-**Show**: Compliance Overview tab
-
-> "15,000 plot polygons verified against post-2020 deforestation baseline."
-
-**Action**: Point at 94.2% compliance KPI
-
-### [0:45–1:30] GEOSPATIAL RISK
-
-**Show**: Geospatial Risk tab
-
-> "Heat map shows deforestation risk concentrated in Central Kalimantan and Riau provinces."
-
-**Action**: Show risk heatmap by province
-
-### [1:30–2:15] COMPLIANCE ENGINE
-
-**Show**: Compliance Engine tab
-
-> "Dynamic Tables automatically compile per-shipment compliance dossiers with evidence links."
-
-**Action**: Show a generated DDS with evidence links
-
-### [2:15–3:00] ASK AI
-
-**Show**: Ask AI tab
-
-> "Hendra asks: 'What percentage of our shipments are EUDR-compliant?'"
-
-**Action**: Type compliance question
-
-### [3:00–3:45] ARCHITECTURE & DATA
-
-**Show**: Architecture & Data tab
-
-> "Six Snowflake capabilities, six AWS services in the dual-build architecture."
-
-**Action**: Walk through architecture diagram
-
+- Indonesia exported US$28.5B in palm oil products in 2023 — EU is the second-largest destination (BPS Indonesia)
+- EUDR enforcement begins Dec 2025 — non-compliant shipments face EU market exclusion (European Commission)
+- 15,000+ supply chain polygons need geolocation verification for Indonesia's EU palm oil trade (Trase)
+- Automated compliance reduces due diligence cost by 70% vs manual verification (Proforest)
 
 ---
-
-## Key Demo Differentiators
-
-1. **Geospatial polygon checks via GEOGRAPHY functions** — Only demo using Snowflake native geospatial for EUDR deforestation verification
-2. **Automated due diligence statement generation** — Only demo generating EUDR regulatory narratives with Cortex AI from compliance data
-3. **100,000 satellite alert classification** — ML classifies GLAD deforestation alerts by confidence and false positive likelihood
-4. **Indonesian EUDR context at national scale** — 60% of global palm oil, Rp 200T EU export revenue at stake, realistic province-level data
-5. **Dynamic Tables for compliance dossier assembly** — Automatically compiles per-shipment evidence packages from multiple data sources
-
-
----
-
-## Demo Prep Checklist
-
-### Data Verification
-- [ ] `SELECT COUNT(*) FROM PALM_OIL_EUDR.RAW.PLOT_POLYGONS` → 15000
-- [ ] `SELECT COUNT(*) FROM PALM_OIL_EUDR.RAW.SATELLITE_ALERTS` → 100000
-- [ ] `SELECT COUNT(*) FROM PALM_OIL_EUDR.RAW.DUE_DILIGENCE_STATEMENTS` → 3000
-
-### ML Model Verification
-- [ ] `SELECT COUNT(*) FROM PALM_OIL_EUDR.ML.ALERT_FALSE_POSITIVE_RESULTS WHERE IS_ANOMALY = TRUE` → >0
-
-### AI/Agent Verification
-- [ ] `SELECT COUNT(*) FROM PALM_OIL_EUDR.AI.GENERATED_DDS_NARRATIVES` → >0
-- [ ] `SELECT COUNT(*) FROM PALM_OIL_EUDR.AI.ALERT_CLASSIFICATION` → 100000
-
+Generated from `generator/demo_specs/aws-indonesia-palm-oil-eudr.json`. Do not hand-edit: run
+`python3 generator/gen_repo_docs.py aws-indonesia-palm-oil-eudr` instead.
