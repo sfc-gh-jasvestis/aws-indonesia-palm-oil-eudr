@@ -54,6 +54,7 @@ export default function HomePage() {
         <div className="lg:col-span-1">
           <GeoMap
             country="indonesia"
+            regions={data?.regions}
             markers={[{"label": "Medan", "value": "N.Sumatra: 847 estates", "color": "green", "size": "lg"}, {"label": "Palembang", "value": "S.Sumatra: EUDR alert", "color": "amber", "size": "md"}, {"label": "Pontianak", "value": "W.Kalimantan: 412 mills", "color": "green", "size": "md"}, {"label": "Balikpapan", "value": "E.Kalimantan: replanting", "color": "blue", "size": "md"}, {"label": "Jakarta", "value": "Trading desk", "color": "blue", "size": "sm"}]}
             routes={[{"from": "Medan", "to": "Jakarta", "color": "#10B981"}]}
             title="Geographic Overview"
@@ -114,7 +115,7 @@ export default function HomePage() {
     <div className="space-y-6">
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Chart
-          data={data?.breakdown || [{ label: 'Zone North', value: 35 }, { label: 'Zone Central', value: 28 }, { label: 'Zone South', value: 22 }, { label: 'Zone East', value: 15 }]}
+          data={data?.regionAlerts || [{ label: 'Zone North', value: 35 }, { label: 'Zone Central', value: 28 }, { label: 'Zone South', value: 22 }, { label: 'Zone East', value: 15 }]}
           type="pie"
           xKey="label"
           yKeys={[{ key: 'value', name: 'Statements' }]}
