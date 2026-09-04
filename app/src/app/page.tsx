@@ -54,6 +54,7 @@ export default function HomePage() {
         <div className="lg:col-span-1">
           <GeoMap
             country="indonesia"
+            labels={{ entity: 'Suppliers', event: 'Satellite Alerts', alert: 'Deforestation Alerts' }}
             regions={data?.regions}
             markers={[{"label": "Medan", "value": "N.Sumatra: 847 estates", "color": "green", "size": "lg"}, {"label": "Palembang", "value": "S.Sumatra: EUDR alert", "color": "amber", "size": "md"}, {"label": "Pontianak", "value": "W.Kalimantan: 412 mills", "color": "green", "size": "md"}, {"label": "Balikpapan", "value": "E.Kalimantan: replanting", "color": "blue", "size": "md"}, {"label": "Jakarta", "value": "Trading desk", "color": "blue", "size": "sm"}]}
             routes={[{"from": "Medan", "to": "Jakarta", "color": "#10B981"}]}
@@ -84,8 +85,13 @@ export default function HomePage() {
         columns={[
           { key: 'id', header: '#' },
           { key: 'name', header: 'Supplier' },
+          { key: 'region', header: 'Region' },
           { key: 'status', header: 'EUDR Status' },
-          { key: 'value', header: 'Compliance %' },
+          { key: 'm1', header: 'Compliance %' },
+          { key: 'm2', header: 'Deforestation Free' },
+          { key: 'm3', header: 'Forest Proximity Risk' },
+          { key: 'events', header: 'Satellite Alerts' },
+          { key: 'alerts', header: 'Deforestation Alerts' },
         ]}
         data={data?.entities || []}
         title="Supplier EUDR Status"
