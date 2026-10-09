@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "repo": "aws-indonesia-palm-oil-eudr",
+  "operation": "on-demand",
+  "data_classification": "synthetic demonstration only",
+  "currency": "none (volumes in tonnes of fresh fruit bunches)",
+  "grains": {
+    "RAW.SUPPLY_BASES": "one row per supply base (mill-hub city x supplier type)",
+    "RAW.SUPPLY_DAILY": "one row per supply base per day (90 days)",
+    "RAW.PLOT_REGISTRY": "one row per supply base (plot geolocation snapshot)",
+    "CURATED.PERFORMANCE_SUMMARY": "one row per supply base",
+    "CURATED.TREND_ANALYSIS": "one row per day",
+    "CURATED.SIGNAL_SUMMARY": "one row per risk signal",
+    "CURATED.KPI_SUMMARY": "one row per KPI",
+    "ML.CANOPY_RISK_SCORES": "one row per supply base (latest day)"
+  },
+  "metrics": {
+    "Traceability to Plot": "100 * SUM(TRACED_TONNES) / SUM(FFB_TONNES)",
+    "FFB Deliveries": "SUM(DELIVERY_COUNT)",
+    "FFB Intake (kt)": "SUM(FFB_TONNES) / 1e3",
+    "Screening Flags": "SUM(FLAG_COUNT)",
+    "Confirmed Canopy-Loss Cases": "SUM(CONFIRMED_COUNT)",
+    "Flag Precision": "100 * SUM(CONFIRMED_COUNT) / SUM(FLAG_COUNT)",
+    "Lots Excluded from EU Stock": "SUM(LOTS_EXCLUDED)",
+    "Supplier Declaration Rate": "100 * SUM(DECLARATION_RECEIVED) / SUM(DECLARATION_DUE)",
+    "Supply Bases Monitored": "COUNT(RAW.SUPPLY_BASES)",
+    "Plot Geolocation Coverage": "100 * SUM(LEAST(ON_FILE_QTY, REQUIRED_QTY)) / SUM(REQUIRED_QTY)",
+    "Geolocation Checks Pending": "SUM(PENDING_QTY)",
+    "Registered Plots": "SUM(REQUIRED_QTY)"
+  },
+  "chart_bindings": {
+    "daily_deliveries": [
+      "CURATED.TREND_ANALYSIS.METRIC_DATE",
+      "DELIVERY_COUNT",
+      "FLAG_COUNT"
+    ],
+    "flags_by_signal": [
+      "CURATED.SIGNAL_SUMMARY.RISK_SIGNAL",
+      "FLAG_COUNT",
+      "CONFIRMED_COUNT"
+    ],
+    "declaration_vs_confirmed": [
+      "CURATED.PERFORMANCE_SUMMARY.DECLARATION_PCT",
+      "CONFIRMED_COUNT"
+    ],
+    "quicksight_canopy_risk": [
+      "ENTITY_ID",
+      "MAX(LOSS_PROB_7D)"
+    ]
+  },
+  "freshness": "MAX(EVENT_DATE) is an observation watermark; requestedAt is not freshness",
+  "required_capabilities": {
+    "core_pipeline": "Curated KPIs reconcile to a RAW recomputation (run_core.py checks this on every build)",
+    "forecast_and_anomaly": "14-day network-wide FFB delivery FORECAST; geolocation mismatch ANOMALY_DETECTION (train 75 days, detect last 15)",
+    "search": "Cortex Search SEARCH.EUDR_SOP_SEARCH over synthetic traceability follow-up SOPs (one per supplier type and risk signal)",
+    "semantic_analytics": "Semantic view APP.EUDR_ANALYTICS and Cortex Agent APP.EUDR_AGENT using analyst + search tools",
+    "grounded_ai": "Agent answers return generated SQL and SOP citations; the action memo uses only KPI, supply base, risk-signal and risk rows",
+    "quicksight": "DIRECT_QUERY dashboard (supply bases, daily FFB deliveries, confirmed canopy-loss cases by supply base, canopy-loss risk, delivery events loaded) over an existing Snowflake data source",
+    "quicksight_q": "Amazon Q topic over the curated datasets for natural-language questions",
+    "aws_ingestion": "S3 PutObject of mill-gate FFB delivery batches -> S3 (deliveries/) -> Snowpipe AUTO_INGEST into RAW.LIVE_DELIVERIES",
+    "notifications": "APP.LIVE_DELIVERY_ALERT logs new FLAG events to APP.ALERT_LOG and emails via SYSTEM$SEND_EMAIL; alert and tasks suspended between demos",
+    "orchestration": "Task graph APP.TASK_REFRESH_CURATED -> APP.TASK_RESCORE_RISK run on demand (EXECUTE TASK)",
+    "app_deployment": "SPCS service APP.ID_EUDR_APP; routes /api/data, /api/ask, /api/agent",
+    "canopy_risk_model": "Snowflake ML CLASSIFICATION of P(confirmed canopy-loss case in next 7 days) per supply base, evaluated on an out-of-time holdout"
+  },
+  "builds": {
+    "snowflake": {
+      "database": "INDONESIA_PALM_EUDR_SNOWFLAKE",
+      "app_setting": "DEMO_PLATFORM=snowflake",
+      "memo": "Cortex AI_COMPLETE (claude-sonnet-4-5)",
+      "live_deliveries": "APP.SIMULATE_DELIVERIES(n)"
+    },
+    "aws": {
+      "database": "INDONESIA_PALM_EUDR_AWS",
+      "app_setting": "DEMO_PLATFORM=aws",
+      "memo": "Amazon Bedrock Claude Sonnet 4.5 via APP.BEDROCK_GENERATE",
+      "capabilities": "see required_capabilities",
+      "live_deliveries": "S3 upload -> Snowpipe"
+    }
+  }
+}
